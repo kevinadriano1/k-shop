@@ -9,11 +9,18 @@
             font-family: Arial, sans-serif;
             margin: 20px;
         }
+        .products-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
         .product {
             border: 1px solid #ddd;
             padding: 15px;
             margin-bottom: 20px;
-            max-width: 600px;
+            width: 280px; /* Adjust the width to fit side by side */
+            box-sizing: border-box;
         }
         .product h2 {
             margin-top: 0;
@@ -22,8 +29,9 @@
             margin: 5px 0;
         }
         .product img {
-            max-width: 100%;
+            max-width: 100%; /* Ensure image fits within the product box */
             height: auto;
+            max-height: 200px; /* Limit the image height */
             margin-bottom: 15px;
         }
         h1 {
@@ -36,16 +44,20 @@
 
     <h1>K-SHOP</h1> <!-- Added main title -->
 
-    {% for product in products %}
-        <div class="product">
-            <img src="{{ product.image_url }}" alt="{{ product.name }}">
-            <h2>{{ product.name }}</h2>
-            <p><strong>Price:</strong> ${{ product.price }}</p>
-            <p><strong>Description:</strong> {{ product.description }}</p>
-        </div>
-    {% endfor %}
-    <div class="footer"></div>
+    <div class="products-container">
+        {% for product in products %}
+            <div class="product">
+                <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                <h2>{{ product.name }}</h2>
+                <p><strong>Price:</strong> ${{ product.price }}</p>
+                <p><strong>Description:</strong> {{ product.description }}</p>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="footer">
         <p>Created by: {Kevin Adriano} - {2306172552} - {PBP KKI}</p>
     </div>
+    
 </body>
 </html>
