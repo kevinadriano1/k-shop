@@ -1,6 +1,3 @@
-from django.test import TestCase
-
-# Create your tests here.
 from django.test import TestCase, Client
 from django.urls import reverse
 from .models import Product
@@ -8,7 +5,7 @@ from .models import Product
 class ShowMainViewTests(TestCase):
     def setUp(self):
         self.client = Client()
-        self.url = reverse('show_main')
+        self.url = reverse('main:show_main')
 
         # Create some test products
         self.product1 = Product.objects.create(
@@ -37,14 +34,13 @@ class ShowMainViewTests(TestCase):
         self.assertIn('products', response.context)
         products = response.context['products']
 
-        # Check if all products are in the context
-        self.assertEqual(products.count(), 3)
-        self.assertEqual(products[0].name, 'barcelona 2024')
-        self.assertEqual(products[1].name, 'manchester united 2024')
-        self.assertEqual(products[2].name, 'real madrid 2024')
+        # Check if all products are in the context and match the expected dictionaries
+        self.assertEqual(len(products), 3)
+        self.assertEqual(products[0]['name'], 'barcelona 2024')
+        self.assertEqual(products[1]['name'], 'manchester united 2024')
+        self.assertEqual(products[2]['name'], 'real madrid 2024')
 
         # Check the content of the products
         self.assertContains(response, 'barcelona 2024')
         self.assertContains(response, 'manchester united 2024')
         self.assertContains(response, 'real madrid 2024')
-
